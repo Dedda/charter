@@ -6,6 +6,7 @@ pub struct HorizontalBarChart {
     empty_lines: bool,
     data: Vec<BarData>,
     pub width: usize,
+    pub character: char,
 }
 
 impl HorizontalBarChart {
@@ -14,6 +15,7 @@ impl HorizontalBarChart {
             empty_lines,
             data: vec![],
             width: 0,
+            character: '#'
         }
     }
 
@@ -23,7 +25,7 @@ impl HorizontalBarChart {
 
     pub fn plot_internal(&self) -> Vec<String> {
         let scale = self.internals_scale();
-        let lines: Vec<String> = self.data.iter().map(|BarData(_, data)| (0..(data.clone() as f64 * scale) as i64).map(|_| "#").collect::<String>()).collect();
+        let lines: Vec<String> = self.data.iter().map(|BarData(_, data)| (0..(data.clone() as f64 * scale) as i64).map(|_| self.character).collect::<String>()).collect();
         if self.empty_lines {
             lines.insert_blanks()
         } else {
